@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>showtime</title>
+
+    <link href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css'
+          rel='stylesheet'>
+    <link rel="stylesheet" href="styles/Showtimes.css">
+
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Showtimes</h1>
+            <h3>Give me something to do!</h3>
+        </div>
+        <div id="left" class="left">
+            <form id="MovieForm">
+                <br />
+                <label for="location">Location: </label>
+                <select name="location" id="location">
+                    <option value="Oshawa Cinemas">Oshawa Cinemas</option>
+                    <option value="Toronto Cinemas">Toronto Cinemas</option>
+                    <option value="CoolJoy Cinemas">CoolJoy Cinemas</option>
+
+
+                </select><br /><br />
+                <label for="datepicker">Date: </label>
+
+                <input type="text" id="datepicker" readonly="readonly"><br /><br />
+                <button>Search</button>
+                <!--<a href="Showtimes/search/" class="button">Search</a>-->
+            </form>
+            <br />
+            <div id="showtimes">
+                
+            </div>
+
+        </div>
+        <div class="right" id="formLeft">
+
+        </div>
+    </div>
+
+
+    <!-- Load JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!--<script src="scripts/jquery-ui.js"></script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <!-- Load my Scripts -->
+    <script src="scripts/Showtimes.js"></script>
+
+</body>
+</html>
