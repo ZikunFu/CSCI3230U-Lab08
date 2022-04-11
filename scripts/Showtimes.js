@@ -15,7 +15,6 @@ $(document).ready(function () {
 
    
     
-    let printed = false;
     $('#MovieForm').submit(function (event) {
         let selectedLocation = $('#location').val();
         event.preventDefault();
@@ -23,25 +22,31 @@ $(document).ready(function () {
             type: 'GET',
             url: 'showtimes.json',
             success: function (data) {
-                if (printed == true) {
-                    location.reload();
-                }
                 //check selected location is in data
+                dateFound = false
+                locationFound=false
                 $.each(data, function (key, value) {
-                    
-                    //return if both condition is met
-                    if ((value.location.search(selectedLocation) != -1)
-                        && (value.date.search(selectedDate) != -1)&&printed==false) {
-                        buildShowtime(data);
-                        //check if it is printed already
-                        printed = true;
+                    console.log(selectedDate)
+                    //Check location
+                    if (value.location.search(selectedLocation) != -1){
+                        locationFound = true 
+                    }
+
+                    //Check date
+                    if (value.date.search(selectedDate) != -1) {
+                        dateFound = true
                     }
                 })
-                if (printed == false) {
-                    location.reload();
+                console.log("location:" + locationFound)
+                console.log("date:" + dateFound)
+
+                // build showtime if location and date match
+                if (dateFound && locationFound) {
+                    buildShowtime(filterDate(data, selectedDate));
+                }
+                else {
                     alert('Location or Date not found!')
                 }
-
                 
             }
         })
@@ -50,12 +55,15 @@ $(document).ready(function () {
 
 });
 
-function buildShowtime(data) {
+
+
+function buildShowtime(data,date) {
     let division = $('#showtimes');
+    division.empty();
     //total num of movies
     let rowSize = data.length;
     for (let i = 0; i < data.length; i++) {
-
+        
         var tempTable = $('<table>');
 
         let movieName = data[i].title;
@@ -85,7 +93,7 @@ function buildShowtime(data) {
 
                 //data.attr('id', '' + row + col);
 
-                tr.append(data);
+                tr.append(data,date);
 
             }
             tempTable.append(tr);
@@ -137,6 +145,15 @@ function buildInfo(data) {
 
     }
     
+}
+
+function filterDate(data, date) {
+    if (date == '2021/01/01') {
+        return data.slice(4,6)
+    }
+    else {
+        return data.slice(0,4)
+    }
 }
 
 function getApi(title) {
